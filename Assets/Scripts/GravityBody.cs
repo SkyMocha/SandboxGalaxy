@@ -102,9 +102,9 @@ public class GravityBody : MonoBehaviour
         freezeRB(true);
 
         float dist = Vector2.Distance(planet.transform.position, transform.position);
-        if (dist > 8f)
+        if (dist > 9.5f)
             return;
-        if (pause && dist > 5.5f)
+        if (pause && dist > 8.25f)
             return;
 
         Vector3 mousePoint = GetMouseWorldPos() + mouseOffset;
