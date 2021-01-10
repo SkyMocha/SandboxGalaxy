@@ -23,7 +23,7 @@ public class CameraController : MonoBehaviour
     void Update()
     { 
         float scroll = Input.GetAxis("Mouse ScrollWheel");
-        Debug.Log (scroll);
+        // Debug.Log (scroll);
         // Debug.Log (Input.GetAxis("Mouse ScrollWheel"));
         if (scroll > 0f) // forward
         {
@@ -43,6 +43,12 @@ public class CameraController : MonoBehaviour
         //     }
         // }
 
+        if (Input.GetKey(KeyCode.Backspace))
+        {
+            Debug.Log ("RECENTERING");
+            transform.position = new Vector3 (0f, 0f, transform.position.z);
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             if (Input.GetKey(KeyCode.LeftShift)) {
@@ -55,7 +61,7 @@ public class CameraController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift)) {
             Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
-            Vector3 cam_move = new Vector3(pos.x * dragSpeed * -1, pos.y * dragSpeed * -1, 0f);
+            Vector3 cam_move = new Vector3(pos.x * transform.position.z * dragSpeed, pos.y * transform.position.z * dragSpeed, 0f);
 
             transform.Translate(cam_move, Space.World);  
         }

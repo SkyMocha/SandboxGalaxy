@@ -58,7 +58,8 @@ public class GravityBody : MonoBehaviour
             return;
 
         Vector3 v = planet.transform.position - transform.position;
-        rb.AddForce(v.normalized * (1.0f - dist / maxGravityDist) * maxGravity);
+        Planet p = planet.GetComponent<Planet>();
+        rb.AddForce(v.normalized * (1.0f - dist / maxGravityDist) * (maxGravity + p.density*0.25f));
 
         lookDir = planet.transform.position - transform.position;
         lookAngle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
@@ -67,7 +68,6 @@ public class GravityBody : MonoBehaviour
     }
 
     void OnMouseDown() {
-        Debug.Log ("MEWOOWOWOW");
         if (Input.GetKey(KeyCode.LeftShift))
             return;
         // dragged = true;
@@ -118,7 +118,9 @@ public class GravityBody : MonoBehaviour
         float min_dist = 10000f;
         Transform min_dist_planet = planet.transform;
         foreach (Transform child in planetParent.transform ) {
-            float dist = Vector2.Distance(child.transform.position, transform.position);
+            Planet p = child.GetComponent<Planet>();
+            // Vector3 pull = new Vector3(p.pull, p.pull, 1f);
+            float dist = Vector2.Distance(child.transform.position, transform.position) - p.pull*1.5f;
             if (dist < min_dist) {
                 min_dist = dist;
                 min_dist_planet = child;

@@ -20,11 +20,11 @@ public class Star : MonoBehaviour
     void Update()
     {
 
-        speed = Random.Range(0.5f, 2.5f);
+        speed = Random.Range(0.125f, 3.25f);
 
         count += Time.deltaTime;
         float col = Mathf.Sin (count) * 75 + 125;
-        Debug.Log (col + " | " + count + " | " + speed);
+        // Debug.Log (col + " | " + count + " | " + speed);
         ren.color = new Color (1, 1, 1, col/255);
         
     }

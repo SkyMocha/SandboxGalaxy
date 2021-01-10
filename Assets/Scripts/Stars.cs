@@ -21,7 +21,7 @@ public class Stars : MonoBehaviour
             float size = Random.Range (1.25f, 8.5f);
             GameObject child = Instantiate(prefab, new Vector3(x, y, -0.5f), Quaternion.identity);
             child.transform.parent = transform;
-            child.transform.localScale = new Vector3(size, size, 1f);
+            child.transform.localScale = new Vector3(size, size, -2f);
         }
     }
 
