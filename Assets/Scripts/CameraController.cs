@@ -13,6 +13,11 @@ public class CameraController : MonoBehaviour
     private Vector3 mouseOffset;
     private Vector3 dragOrigin;
 
+    public GameObject player;
+
+    private bool follow;
+    private float followDelay;
+
     Vector3 GetMouseWorldPos() {
         Vector3 mousePoint = Input.mousePosition;
 
@@ -46,7 +51,23 @@ public class CameraController : MonoBehaviour
         if (Input.GetKey(KeyCode.Backspace))
         {
             Debug.Log ("RECENTERING");
-            transform.position = new Vector3 (0f, 0f, transform.position.z);
+            transform.position = new Vector3 (player.transform.position.x, player.transform.position.y, transform.position.z);
+        }
+
+        if (Input.GetKey(KeyCode.Backspace) && followDelay <= 0){
+            if (Input.GetKey(KeyCode.LeftShift)) {
+                follow = !follow;
+                followDelay = 0.5f;
+            }
+        }
+        if (followDelay >= 0f) {
+            followDelay -= Time.deltaTime;
+        }
+
+        if (follow) {
+            Vector3 goal = new Vector3 (player.transform.position.x, player.transform.position.y, transform.position.z);
+            transform.position = goal;
+            return;
         }
 
         if (Input.GetMouseButtonDown(0))

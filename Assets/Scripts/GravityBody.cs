@@ -101,13 +101,14 @@ public class GravityBody : MonoBehaviour
 
         freezeRB(true);
 
-        float dist = Vector2.Distance(planet.transform.position, transform.position);
-        if (dist > 9.5f)
-            return;
-        if (pause && dist > 8.25f)
-            return;
-
         Vector3 mousePoint = GetMouseWorldPos() + mouseOffset;
+
+        float dist = Vector2.Distance(mousePoint, transform.position);
+        Planet p = planet.GetComponent<Planet>();
+        if (dist > 10.5f - p.density)
+            return;
+        if (pause && dist > 9.25f)
+            return;
 
         transform.position = mousePoint;
         dragV += dragAcceleration;
